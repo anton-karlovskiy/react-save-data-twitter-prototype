@@ -3,29 +3,32 @@ import PropTypes from 'prop-types';
 
 import Header from './Header';
 import Text from './Text';
+// import Media from './Media';
 import Footer from './Footer';
 import styles from './styles';
 import {cloneDeep} from './utils';
 
 class Modal extends React.Component {
-  close () {
+  close = () => {
     this.context.closeModal()
   };
 
   render () {
     if (typeof window === "undefined") return null;
 
-    // MEMO: tweak
-    let {data, modalIndex, imagePath} = this.props;
+    let {data, modalIndex} = this.props/*, isRT = false*/;
+    // let MediaComponent = null;
+
     // use retweet as data if its a RT
     if (data.retweeted_status) {
       data = data.retweeted_status;
-    };
+      // isRT = true;
+    }
 
     let media = data.entities.media[modalIndex];
     if (data.extended_entities && data.extended_entities.media) {
       media = data.extended_entities.media[modalIndex];
-    };
+    }
 
     const tweetStyle = {
       'backgroundColor': '#ffffff',
@@ -82,18 +85,15 @@ class Modal extends React.Component {
       if (h > 650) {
         imgStyle.width = `${(media.sizes.large.w / media.sizes.large.h) * 650}px`;
         modalWrap.width = `${(media.sizes.large.w / media.sizes.large.h) * 650}px`;
-      } 
-      else {
+      } else {
         modalWrap.width = `${(media.sizes.large.w / media.sizes.large.h) * 650}px`;
         imgStyle.height = `${(media.sizes.large.h / media.sizes.large.w) * 1000}px`;
       }
-    }
-    else {
+    } else {
       if (h > 650) {
         modalWrap.width = `${(media.sizes.large.w / media.sizes.large.h) * 650}px`;
         imgStyle.width = `${(media.sizes.large.w / media.sizes.large.h) * 650}px`;
-      }
-      else {
+      } else {
         modalWrap.width = `${w}px`;
       }
     }
@@ -111,8 +111,7 @@ class Modal extends React.Component {
           </div>
           <div className="tweet" style={tweetStyle}>
             <div className="media-wrap" style={imgWrapStyle}>
-              {/* MEMO: tweak */}
-              <img alt="" src={imagePath} style={imgStyle} />
+              <img alt="modal" src={media.media_url} style={imgStyle} />
             </div>
             <div className="content" style={contentStyle}>
               <Header data={data} />

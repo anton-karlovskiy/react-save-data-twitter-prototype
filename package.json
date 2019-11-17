@@ -1,13 +1,12 @@
 {
-  "name": "react-save-data-twitter",
+  "name": "react-twitter-save-data-loading(hook)",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
+    "react-adaptive-hooks": "0.0.5",
     "react-dom": "^16.10.1",
     "react-scripts": "3.1.2",
     "react-toggle": "^4.1.1",

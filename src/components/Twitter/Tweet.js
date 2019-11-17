@@ -1,3 +1,19 @@
+/*
+ * Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -44,7 +60,7 @@ class Tweet extends React.Component {
   render () {
     const {modalActive, modalIndex} = this.state;
     // MEMO: tweak
-    let {data, linkProps, imagePath} = this.props, isRT = false;
+    let {data, linkProps} = this.props, isRT = false;
     let MediaComponent = null, QuoteComponent = null;
     
     //Support for extended tweets
@@ -104,13 +120,13 @@ class Tweet extends React.Component {
     // use Media component if media entities exist
     if (data.entities && data.entities.media) {
       // MEMO: tweak
-      MediaComponent = <Media imagePath={imagePath} autoPlay={this.props.autoPlay} media={data.entities.media} />;
+      MediaComponent = <Media autoPlay={this.props.autoPlay} media={data.entities.media} />;
     }
 
     // extended_entities override, these are multi images, videos, gifs
     if (data.extended_entities && data.extended_entities.media) {
       // MEMO: tweak
-      MediaComponent = <Media imagePath={imagePath} autoPlay={this.props.autoPlay} media={data.extended_entities.media} />;
+      MediaComponent = <Media autoPlay={this.props.autoPlay} media={data.extended_entities.media} />;
     }
 
     // use Quote component if quoted status exists
@@ -123,7 +139,7 @@ class Tweet extends React.Component {
         {isRT ? <Context {... this.props} /> : null}
         <div className="content" style={styles.content}>
           {/* MEMO: tweak */}
-          <Header data={data} linkProps={linkProps} imagePath={imagePath} />
+          <Header data={data} linkProps={linkProps} />
           <a style={styles.link} href={`https://twitter.com/${data.user.screen_name}/status/${data.id_str}`} {...linkProps}>
             <Text data={data} />
           </a>
@@ -132,7 +148,7 @@ class Tweet extends React.Component {
           <Footer data={data} linkProps={linkProps} />
         </div>
         {/* MEMO: tweak */}
-        {modalActive ? <Modal data={data} modalIndex={modalIndex} imagePath={imagePath} /> : null}
+        {modalActive ? <Modal data={data} modalIndex={modalIndex} /> : null}
       </div>
     );
   }

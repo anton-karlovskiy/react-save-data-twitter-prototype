@@ -1,3 +1,19 @@
+/*
+ * Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import React from 'react';
 
 import styles from './styles';
@@ -44,8 +60,7 @@ class Header extends React.Component {
   };
 
   render () {
-    // MEMO: tweak
-    const {data, linkProps, imagePath} = this.props;
+    const {data, linkProps} = this.props;
     const timestamp = this.createTimestamp(data.created_at);
     
     let verified = null;
@@ -56,8 +71,7 @@ class Header extends React.Component {
     return (
       <div className="header">
         <a className="account-group" style={styles.accountGroup} href={`https://twitter.com/${data.user.screen_name}`} {...linkProps}>
-          {/* MEMO: tweak */}
-          <img alt="" className="avatar" src={imagePath} style={styles.avatar} />
+          <img alt="avatar" className="avatar" src={data.user.profile_image_url} style={styles.avatar} />
           <strong className="fullname" style={styles.fullname}>{data.user.name}</strong>
           {verified}
           <span>&nbsp;</span>

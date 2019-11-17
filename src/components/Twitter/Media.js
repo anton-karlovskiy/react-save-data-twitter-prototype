@@ -14,15 +14,34 @@
  * limitations under the License.
  */
 
+// MEMO: tweak
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import PropTypes from 'prop-types';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Photos from './Photos';
+import Video from './Video';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const Media = props => {
+  switch (props.media[0].type) {
+    case 'photo':
+      return <Photos { ...props } />;
+    case 'video':
+      return <Video { ...props } />;
+    case 'animated_gif':
+      return <Video gif { ...props } />;
+    default:
+      return null;
+  };
+};
+
+Media.propTypes = {
+  media: PropTypes.array
+};
+
+Media.defaultProps = {
+  media: [{'type': ''}]
+};
+
+Media.displayName = 'Media';
+
+export default Media;
